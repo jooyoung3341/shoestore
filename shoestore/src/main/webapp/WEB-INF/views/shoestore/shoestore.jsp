@@ -3,22 +3,13 @@
 <!DOCTYPE html>
 <html>
 <head>
+<%@include file="../include/header.jsp" %>
 	<title>Home</title>
 </head>
 <body>
-<%@include file="../include/header.jsp" %>
-<div class="container">
-	<div class="row">
-		<div class="col-lg-9 ftco-animate fadeInup ftco-animated">
-			<div class="row">
-				<div class="col-md-4 d-flex">
-					<div class="book-wrap"></div>
-				</div>
-			</div>
-		</div>
-	</div>
-</div>
-
+<a href="shoesRegister">
+<button type="button" class="btn btn-primary btn-block">신발 올리기</button>
+</a>
 </body>
 </html>
 

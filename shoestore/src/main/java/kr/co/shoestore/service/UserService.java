@@ -6,7 +6,7 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 
 import kr.co.shoestore.domain.User;
 
-/*extends UserDetailsService */
+
 public interface UserService extends UserDetailsService{
 	
 	//아이디 중복 체크

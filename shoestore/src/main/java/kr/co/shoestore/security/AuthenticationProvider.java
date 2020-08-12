@@ -20,23 +20,26 @@ public class AuthenticationProvider implements org.springframework.security.auth
 	@Autowired
 	private BCryptPasswordEncoder passwordEncoder;
 	
+	//인증절차
 	@Override
 	public Authentication authenticate(Authentication authentication) throws AuthenticationException {
+		//로그인 폼에 입력한 아이디, 비밀번호 
 		String id = (String) authentication.getPrincipal();
 		String pw = (String) authentication.getCredentials();
 		
+		//DB에서 사용자 정보를 조회한 정보를 user에 담음
 		SecurityUser user = (SecurityUser) userServiceImpl.loadUserByUsername(id);
-		System.out.println(user.isEnabled());
-	
+
+		//화면에 입력한 비밀번호와 DB에서 조회한 비밀번호를 비교(DB에 비밀번호는 암호화되있음)
 		 if(!matchPassword(pw, user.getPassword())) {
 	            throw new BadCredentialsException(id);
 	        }
-	 
-	        if(!user.isEnabled()) {
+		 //계정 활성화 여부 확인
+		 if(!user.isEnabled()) {
 	            throw new BadCredentialsException(id);
 	        }
-	        
-	        return new UsernamePasswordAuthenticationToken(id, pw, user.getAuthorities());
+	     //위 두번의 인증절차가 통과 되면 아이디, 비밀번호, 권한 가지고 리턴
+	     return new UsernamePasswordAuthenticationToken(id, pw, user.getAuthorities());
 	}
 
 	@Override
@@ -45,9 +48,9 @@ public class AuthenticationProvider implements org.springframework.security.auth
 		return true;
 	}
 	
+	// 시큐리티에서 제공하는 비밀번호 비교 메서드, 비밀번호가 맞으면 true 리턴
 	 private boolean matchPassword(String loginPw, String password) {
 	        return passwordEncoder.matches(loginPw, password); 
-	        		
 	 }
 
 }

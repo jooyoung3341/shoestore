@@ -30,4 +30,5 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		   inner join authority as a on u.id = a.id
 	where u.id = #{id}
 </select>
+
 </mapper>

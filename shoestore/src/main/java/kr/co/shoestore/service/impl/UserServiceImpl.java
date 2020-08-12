@@ -75,16 +75,16 @@ public class UserServiceImpl implements UserService{
 	//사용자 정보 가져오기
 	  @Override
 	  public UserDetails loadUserByUsername(String id) throws UsernameNotFoundException {
+		  //사용자 정보를 가져옴
 		  SecurityUser user = userMapper.readUser(id);
-	  
-	  
-	  if(user == null) { 
-		  throw new UsernameNotFoundException(id); 
+		  
+		  //정보가 없으면 예외
+		  if(user == null) { 
+			  throw new UsernameNotFoundException(id); 
+			  }
+	
+		  return user; 
 		  }
-	  //UsernameNotFoundException 
-
-	  return user; 
-	  }
 
 	  
 

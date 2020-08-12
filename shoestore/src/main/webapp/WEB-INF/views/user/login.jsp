@@ -1,60 +1,56 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-    <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+
 <!DOCTYPE html>
 <html>
 <head>
+<%@include file="../include/header.jsp" %>
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <meta id="_csrf" name="_csrf" content="${_csrf.token}" />
 <meta id="_csrf_header" name="_csrf_header" content="${_csrf.headerName}" />
 </head>
 <body>
-<%@include file="../include/header.jsp" %>
-
-<div class="container">
-	<div class="contact-wrap w-100 p-md-5 p-4">
-		<h3 class="mb-4">
-			<font style="vertical-align: inherit;">
-				로그인
-			</font>
-		</h3>
-		<form class="contactForm" method="post" action='<c:url value="/login"/>'>
-			<div class="row">
-				<div class="col-md-12">
-					<div class="form-group">
-						<label class="label">
-							<font style="vertical-align: inherit;">
-								아이디
-							</font>
-						</label>
-						<input type="text" class="form-control" name="id" id="id" placeholder="아이디">
-					</div>
-					<div class="form-group">
-						<label class="label">
-							<font style="vertical-align: inherit;">
-								비밀번호
-							</font>
-						</label>
-						<input type="password" class="form-control" name="pw" id="pw" placeholder="비밀번호">
-					</div>
-					<div class="form-group">
-						<font style="vertical-align: inherit;">
+<div class="page-single">
+	<div class="container">
+		<div class="row">
+			<div class="col col-login mx-auto">
+				<form class="card" method="post" action='<c:url value="/login"/>'>
+					<div class="card-body p-6">
+						<div class="card-title">로그인</div>
+						<div class="form-group">
+							<label class="form-label">
+								<font style="vertical-align: inherit;">아이디</font>
+							</label>
+							<input type="text" class="form-control" id="id" name="id" placeholder="아이디 입력">
+						</div>
+						<div class="form-group">
+							<label class="form-label">
+								<font style="vertical-align: inherit;">비밀번호</font>
+							</label>
+							<input type="password" class="form-control" id="pw" name="pw" placeholder="비밀번호 입력">
+						</div>
+						<div class="form-footer">
 							<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}">
-							<input type="submit" class="btn btn-primary" value="로그인">
-						</font>
-						<font style="vertical-align: inherit;">
-							<input type="button" class="btn btn-primary" id="signupModal" value="회원가입" data-target="#staticBackdrop">
-						</font>
+							<button type="submit" class="btn btn-primary btn-block">
+								<font style="vertical-align: inherit;">로그인</font>
+							</button>
+							<button type="button" class="btn btn-primary btn-block" id="signupModal">
+								<font style="vertical-align: inherit;">회원가입</font>
+							</button>
+							
+						</div>
 					</div>
-					
-					
-				</div>
+				</form>
 			</div>
-			
-		</form>
+		</div>
 	</div>
 </div>
+
+				
+
+
+
 
 
 <!-- Modal -->
@@ -64,7 +60,7 @@
       <div class="modal-header">
         <h5 class="modal-title" id="staticBackdropLabel">Modal title</h5>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
+          <!-- <span aria-hidden="true">&times;</span> -->
         </button>
       </div>
       <div class="modal-body">

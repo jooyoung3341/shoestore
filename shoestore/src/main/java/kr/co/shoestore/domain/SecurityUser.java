@@ -9,6 +9,10 @@ import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 
+/*
+	시큐리티 사용자 정보를 담을 도메인
+*/
+
 public class SecurityUser  implements UserDetails {
 
 	private String id;
@@ -16,41 +20,36 @@ public class SecurityUser  implements UserDetails {
 	private String authority_name;
 	private boolean enabled;
 	
+	//사용자 권한 목록
 	@Override
 	public Collection<? extends GrantedAuthority> getAuthorities() {
 		ArrayList<GrantedAuthority> auth = new ArrayList<GrantedAuthority>();
 		auth.add(new SimpleGrantedAuthority(authority_name));
-		// TODO Auto-generated method stub
 		return null;
 	}
+	
 	@Override
 	public String getPassword() {
-		// TODO Auto-generated method stub
 		return pw;
 	}
 	@Override
 	public String getUsername() {
-		// TODO Auto-generated method stub
 		return id;
 	}
 	@Override
 	public boolean isAccountNonExpired() {
-		// TODO Auto-generated method stub
 		return false;
 	}
 	@Override
 	public boolean isAccountNonLocked() {
-		// TODO Auto-generated method stub
 		return false;
 	}
 	@Override
 	public boolean isCredentialsNonExpired() {
-		// TODO Auto-generated method stub
 		return false;
 	}
 	@Override
 	public boolean isEnabled() {
-		// TODO Auto-generated method stub
 		return enabled;
 	}
 
