@@ -7,8 +7,7 @@
 <%@include file="../include/header.jsp" %>
 <meta charset="UTF-8">
 <title>Insert title here</title>
-<meta id="_csrf" name="_csrf" content="${_csrf.token}" />
-<meta id="_csrf_header" name="_csrf_header" content="${_csrf.headerName}" />
+
 </head>
 <body>
 <div class="page-single">
@@ -152,6 +151,7 @@ function confirmId(){
 				data : {"id" : id},
 				dataType : "json",
 				success : function(data){
+					alert(id);
 						if(data.result == true){
 							idCheck = true;
 						}else{

@@ -6,6 +6,10 @@
 <%@include file="../include/header.jsp" %>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+<meta id="_csrf" name="_csrf" content="${_csrf.token}" />
+<meta id="_csrf_header" name="_csrf_header" content="${_csrf.headerName}" />
+
+
 </head>
 <body>
 <div class="page-main">
@@ -13,7 +17,8 @@
 		<div class="container">
 			<div class="row">
 				<div class="col-8">
-					<form method="post" class="card" name="form" enctype="multipart/form-data" onsubmit="return check()">
+					<form method="post" class="card" name="form" enctype="multipart/form-data" 
+						     action='<c:url value="/shoesRegister?${_csrf.parameterName}=${_csrf.token}"/> ' onsubmit="return check()">
 					<div class="card-header">
 						<h3 class="card-title">
 							<font style="vertical-align: inherit;">신발 업로드</font>
@@ -38,25 +43,28 @@
 								<div class="custom-file">
 									<input type="file" class="custom-file-input" id="image" name="image">
 									<label class="custom-file-label">사진</label>
+									<div class="card p-3">
+										<img id="img" class="rounded">
+									</div>
 								</div>
 							</div>
 							<div class="form-group">
 								<label class="form-label">브랜드</label>
 								<div class="selectgroup w-100">
 									<label class="selectgroup-item">
-										<input type="radio" name="brand" id="brand" value="1" class="selectgroup-input">
+										<input type="radio" name="bno" id="bno" value="1" class="selectgroup-input">
 										<span class="selectgroup-button">Nike</span>
 									</label>
 									<label class="selectgroup-item">
-										<input type="radio" name="brand" id="brand" value="2" class="selectgroup-input">
+										<input type="radio" name="bno" id="bno" value="2" class="selectgroup-input">
 										<span class="selectgroup-button">Adidas</span>
 									</label>
 									<label class="selectgroup-item">
-										<input type="radio" name="brand" id="brand" value="3" class="selectgroup-input">
+										<input type="radio" name="bno" id="bno" value="3" class="selectgroup-input">
 										<span class="selectgroup-button">New Balance</span>
 									</label>
 									<label class="selectgroup-item">
-										<input type="radio" name="brand" id="brand" value="4" class="selectgroup-input">
+										<input type="radio" name="bno" id="bno" value="4" class="selectgroup-input">
 										<span class="selectgroup-button">Puma</span>
 									</label>
 								</div>
@@ -65,19 +73,19 @@
 								<label class="form-label">종류</label>
 								<div class="selectgroup w-100">
 									<label class="selectgroup-item">
-										<input type="radio" name="kind" id="kind" value="1" class="selectgroup-input">
+										<input type="radio" name="kno" id="kno" value="1" class="selectgroup-input">
 										<span class="selectgroup-button">런닝화</span>
 									</label>
 									<label class="selectgroup-item">
-										<input type="radio" name="kind" id="kind" value="2" class="selectgroup-input">
+										<input type="radio" name="kno" id="kno" value="2" class="selectgroup-input">
 										<span class="selectgroup-button">단화</span>
 									</label>
 									<label class="selectgroup-item">
-										<input type="radio" name="kind" id="kind" value="3" class="selectgroup-input">
+										<input type="radio" name="kno" id="kno" value="3" class="selectgroup-input">
 										<span class="selectgroup-button">슬리퍼</span>
 									</label>
 									<label class="selectgroup-item">
-										<input type="radio" name="kind" id="kind" value="4" class="selectgroup-input">
+										<input type="radio" name="kno" id="kno" value="4" class="selectgroup-input">
 										<span class="selectgroup-button">운동화</span>
 									</label>
 								</div>
@@ -136,7 +144,8 @@
 								<textarea id="contents" name="contents" rows="5" class="form-control" ></textarea>
 							</div>
 							<div class="form-footer">
-								<button class="btn btn-primary btn-block">
+							<%-- 	<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"> --%>
+								<button type="submit" class="btn btn-primary btn-block">
 									<font style="vertical-align: inherit;">업로드</font>
 								</button>
 							</div>
@@ -151,6 +160,13 @@
 
 
 <script>
+$(document).ready(function(){
+	var token = $("meta[name='_csrf']").attr("content");
+	var header = $("meta[name='_csrf_header']").attr("content");
+	$(document).ajaxSend(function(e, xhr, options){
+		xhr.setRequestHeader(header, token);
+	});
+})
 comma();
 //실시간 콤마 찍기
 function comma(){
@@ -180,11 +196,38 @@ price_comma.on("keyup", function(event){
  */
 function check(){
 	var price = $("#price").val();
-
-
 	$("#price").val(price.replace(/[^\d]+/g, ""));
-
 }
+
+var filename = "";
+$("#image").on("change", function(){
+	preview(this);
+})
+
+function preview(input){
+	if(input.files && input.files[0]){
+		filename = input.files[0].name;
+		//사진 뒤 3글자 가져와서 jpg, gif, png인지 확인
+		var ext = filename.substr(filename.length - 3, filename.length);
+		var isCheck = false;
+		if((ext.toLowerCase() == "jpg" || ext.toLowerCase() == "gif" || ext.toLowerCase() == "png")){
+				isCheck = true;
+			};
+			if(isCheck == false){
+				alert("jpg나 gif, png 만 업로드가 가능합니다.");
+				return;
+			};
+		//load 이벤트의 핸들러. 이 이벤트는 읽기 동작이 성공적으로 완료되었을 떄마다 발생한다.	
+		var reader = new FileReader();				
+		//읽기가 성공하면 읽기 결과를 표시한다.
+		reader.onload = function(e){
+			$("#img").attr("src", e.target.result);
+				/* document.getElementById("img").src = e.target.result; */
+			}
+		//readAsDataURL : 컨텐츠를 특정 Blob이나 File에서 읽어 오는 역할
+		reader.readAsDataURL(input.files[0]);
+		}	
+	};
 
 </script>
 </body>

@@ -10,4 +10,11 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 				 values(#{shoesname}, #{color}, #{contents}, #{image}, #{price}, #{indate}, #{bno}, #{kno})
 </insert>
 
+<!-- 신발 전체 목록 가져오기 -->
+<select id="shoesSelect" resultType="Shoes">
+	select s.sno, b.brand, k.kind, s.shoesname, s.color, s.image, s.price, s.sale, s.favorites
+	from shoes as s
+		   inner join brand as b on s.bno = b.bno
+		   inner join kind as k on k.kno = s.kno
+</select>
 </mapper>

@@ -3,6 +3,7 @@ package kr.co.shoestore.service.impl;
 import java.io.File;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.List;
 import java.util.UUID;
 
 import javax.servlet.http.HttpServletRequest;
@@ -27,6 +28,7 @@ public class ShoeStoreServiceImpl implements ShoeStoreService {
 	public void shoesRegister(MultipartHttpServletRequest request) {
 		String shoesname = request.getParameter("shoesname");
 		String color = request.getParameter("color");
+
 		String contents = request.getParameter("contents");
 		String price = request.getParameter("price");
 		String bno = request.getParameter("bno");
@@ -72,6 +74,12 @@ public class ShoeStoreServiceImpl implements ShoeStoreService {
 			System.out.println(e);
 		}
 		
+	}
+
+	//신발 전체 목록
+	@Override
+	public List<Shoes> shoesSelect(HttpServletRequest request) {
+		return shoeStoreMapper.shoesSelect();
 	}
 
 	

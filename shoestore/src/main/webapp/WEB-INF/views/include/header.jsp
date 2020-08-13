@@ -16,9 +16,8 @@
 <meta name="mobile-web-app-capable" content="yes">
 <meta name="HandheldFriendly" content="True">
 <meta name="MobileOptimized" content="320">
-
-
-
+<meta id="_csrf" name="_csrf" content="${_csrf.token}" />
+<meta id="_csrf_header" name="_csrf_header" content="${_csrf.headerName}" />
 <title>Insert title here</title>
 <!-- <script src="./resources/template/assets/js/require.min.js"></script>
  <script>
