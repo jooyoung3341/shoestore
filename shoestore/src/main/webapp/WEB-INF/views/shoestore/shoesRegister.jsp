@@ -28,12 +28,12 @@
 						<div class="col-lg-8">
 							<div class="form-group">
 								<label class="form-label">신발 이름</label>
-								<input type="text" class="form-control" id="shoesname" name="shoesname">
+								<input type="text" class="form-control" id="shoesname" name="shoesname" required="required">
 							</div>
 							<div class="form-group">
 								<label class="form-label">가격</label>
 								<div class="input-group">
-									<input type="text" class="form-control" id="price" name="price" maxlength="8">
+									<input type="text" class="form-control" id="price" name="price" maxlength="8" required="required">
 								</div>
 							</div>
 							<div class="form-group">
@@ -41,7 +41,7 @@
 									<font style="vertical-align: inherit;">신발 이미지</font>
 								</div>
 								<div class="custom-file">
-									<input type="file" class="custom-file-input" id="image" name="image">
+									<input type="file" class="custom-file-input" id="image" name="image" required="required">
 									<label class="custom-file-label">사진</label>
 									<div class="card p-3">
 										<img id="img" class="rounded">
@@ -52,7 +52,7 @@
 								<label class="form-label">브랜드</label>
 								<div class="selectgroup w-100">
 									<label class="selectgroup-item">
-										<input type="radio" name="bno" id="bno" value="1" class="selectgroup-input">
+										<input type="radio" name="bno" id="bno" value="1" class="selectgroup-input" required="required">
 										<span class="selectgroup-button">Nike</span>
 									</label>
 									<label class="selectgroup-item">
@@ -73,7 +73,7 @@
 								<label class="form-label">종류</label>
 								<div class="selectgroup w-100">
 									<label class="selectgroup-item">
-										<input type="radio" name="kno" id="kno" value="1" class="selectgroup-input">
+										<input type="radio" name="kno" id="kno" value="1" class="selectgroup-input" required="required"> 
 										<span class="selectgroup-button">런닝화</span>
 									</label>
 									<label class="selectgroup-item">
@@ -97,17 +97,17 @@
 								<div class="row gutters-xs">
 									<div class="col-auto">
 										<label lass="colorinput">
-											<input type="radio" id="color" name="color" class="colorinput-input">
+											<input type="radio" id="color" name="color"  value="white" class="colorinput-input" required="required">
 											<span class="colorinput-color bg-blue-lightest"></span>
 										</label>
 									</div>
 									<div class="col-auto">
 										<label lass="colorinput">
-											<input type="radio" id="color" name="color" class="colorinput-input">
+											<input type="radio" id="color" name="color" value="blue" class="colorinput-input">
 											<span class="colorinput-color bg-blue"></span>
 										</label>
 									</div>
-									<div class="col-auto">
+									<div class="col-auto">	
 										<label lass="colorinput">
 											<input type="radio" id="color" name="color" value="red" class="colorinput-input">
 											<span class="colorinput-color bg-red"></span>
@@ -115,25 +115,25 @@
 									</div>
 									<div class="col-auto">
 										<label lass="colorinput">
-											<input type="radio" id="color" name="color" class="colorinput-input">
+											<input type="radio" id="color" name="color" value="green" class="colorinput-input">
 											<span class="colorinput-color bg-green"></span>
 										</label>
 									</div>
 									<div class="col-auto">
 										<label lass="colorinput">
-											<input type="radio" id="color" name="color" class="colorinput-input">
+											<input type="radio" id="color" name="color" value="yellow" class="colorinput-input">
 											<span class="colorinput-color bg-yellow"></span>
 										</label>
 									</div>
 									<div class="col-auto">
 										<label lass="colorinput">
-											<input type="radio" id="color" name="color" class="colorinput-input">
+											<input type="radio" id="color" name="color" value="gray" class="colorinput-input">
 											<span class="colorinput-color bg-gray"></span>
 										</label>
 									</div>
 									<div class="col-auto">
 										<label lass="colorinput">
-											<input type="radio" id="color" name="color" class="colorinput-input">
+											<input type="radio" id="color" name="color" value="black" class="colorinput-input">
 											<span class="colorinput-color bg-gray-dark"></span>
 										</label>
 									</div>
@@ -141,7 +141,7 @@
 							</div>
 							<div class="form-group mb-0">
 								<label class="form-label">상세 설명</label>
-								<textarea id="contents" name="contents" rows="5" class="form-control" ></textarea>
+								<textarea id="contents" name="contents" rows="5" class="form-control" required="required"></textarea>
 							</div>
 							<div class="form-footer">
 							<%-- 	<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"> --%>
@@ -167,6 +167,7 @@ $(document).ready(function(){
 		xhr.setRequestHeader(header, token);
 	});
 })
+
 comma();
 //실시간 콤마 찍기
 function comma(){
@@ -187,23 +188,23 @@ price_comma.on("keyup", function(event){
  	})
 }
 
-/* $(document).ready(function(){
-	$("#shoesRegister").submit(function(){
-		var price = $("#price").val();
 
-	})
-})
- */
+ /* 신발 업로드 전 체크 */
 function check(){
+	//가격에 콤마 제거
 	var price = $("#price").val();
 	$("#price").val(price.replace(/[^\d]+/g, ""));
+	
 }
 
+
+ 
 var filename = "";
+//이미지 변경 될떄마다 실행
 $("#image").on("change", function(){
+	//미리보기 함수 호출
 	preview(this);
 })
-
 function preview(input){
 	if(input.files && input.files[0]){
 		filename = input.files[0].name;

@@ -5,6 +5,8 @@ public class Shoes {
 	private int bno;
 	private int kno;
 	private String shoesname;
+	private String brand;
+
 	private String color;
 	private String contents;
 	private String image;
@@ -12,6 +14,12 @@ public class Shoes {
 	private String indate;
 	private int sale;
 	private int favorites;
+	public String getBrand() {
+		return brand;
+	}
+	public void setBrand(String brand) {
+		this.brand = brand;
+	}
 	public int getSno() {
 		return sno;
 	}
@@ -30,10 +38,10 @@ public class Shoes {
 	public void setKno(int kno) {
 		this.kno = kno;
 	}
-	public String getShoename() {
+	public String getShoesname() {
 		return shoesname;
 	}
-	public void setShoename(String shoename) {
+	public void setShoesname(String shoename) {
 		this.shoesname = shoename;
 	}
 	public String getColor() {

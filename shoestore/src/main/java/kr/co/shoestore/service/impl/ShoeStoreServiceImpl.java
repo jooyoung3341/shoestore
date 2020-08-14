@@ -3,7 +3,9 @@ package kr.co.shoestore.service.impl;
 import java.io.File;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.UUID;
 
 import javax.servlet.http.HttpServletRequest;
@@ -61,7 +63,7 @@ public class ShoeStoreServiceImpl implements ShoeStoreService {
 		try {
 			//파일 전송 - 파일 업로드
 			image.transferTo(file);
-			shoes.setShoename(shoesname);
+			shoes.setShoesname(shoesname);
 			shoes.setColor(color);
 			shoes.setContents(contents);
 			shoes.setImage(filename);
@@ -76,10 +78,28 @@ public class ShoeStoreServiceImpl implements ShoeStoreService {
 		
 	}
 
-	//신발 전체 목록
+	//신발 목록
 	@Override
 	public List<Shoes> shoesSelect(HttpServletRequest request) {
-		return shoeStoreMapper.shoesSelect();
+		String [] bno = request.getParameterValues("bno");
+		
+		String [] kno = request.getParameterValues("kno");
+		String color = request.getParameter("color");
+		Map<String, Object> hashShoes = new HashMap<String, Object>();
+		hashShoes.put("bno", bno);
+		hashShoes.put("kno", kno);
+		hashShoes.put("color", color);
+		/*
+		 * if(bno != null) { hashShoes.put("bno", bno); }else{ hashShoes.put("bno", "");
+		 * }
+		 * 
+		 * if(kno != null) { hashShoes.put("kno", kno); }else{ hashShoes.put("kno", "");
+		 * }
+		 * 
+		 * if(color != null) { hashShoes.put("color", color); }else {
+		 * hashShoes.put("color", ""); }
+		 */
+		return shoeStoreMapper.shoesSelect(hashShoes);
 	}
 
 	

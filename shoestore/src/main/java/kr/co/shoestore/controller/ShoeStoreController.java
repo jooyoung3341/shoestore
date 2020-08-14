@@ -9,6 +9,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
@@ -42,5 +43,11 @@ public class ShoeStoreController {
 		shoeStoreService.shoesRegister(request);
 		attr.addFlashAttribute("shoesRegister_msg", "신발 업로드 완료 !");
 		return "redirect:/shoestore";
+	}
+	
+	@RequestMapping(value="shoestore/shoesselect", method=RequestMethod.GET)
+	@ResponseBody
+	public List<Shoes> shoeSelect(HttpServletRequest request){
+		return shoeStoreService.shoesSelect(request);
 	}
 }
