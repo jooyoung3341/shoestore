@@ -38,13 +38,13 @@
 								<div class="selectgroup selectgroup-pills">
 								<label class="selectgroup-item">
 									<input type="checkbox" name="bno" value="3" class="selectgroup-input">
-									<span class="selectgroup-button">New Balance</span>
+									<span class="selectgroup-button">Puma</span>
 								</label>
 							</div>
 							<div class="selectgroup selectgroup-pills">
 								<label class="selectgroup-item">
 									<input type="checkbox" name="bno" value="4" class="selectgroup-input">
-									<span class="selectgroup-button">Puma</span>
+									<span class="selectgroup-button">New Balance</span>
 								</label>
 							</div>
 						</div>
@@ -79,44 +79,44 @@
 						<font style="vertical-align: inherit;">색상</font>
 						<div class="row gutters-xs">
 							<div class="col-auto">
-								<label lass="colorinput">
-									<input type="radio" id="color" name="color" class="colorinput-input">
+								<label class="colorinput">
+									<input type="radio" id="color" name="color" value="white" class="colorinput-input">
 									<span class="colorinput-color bg-blue-lightest"></span>
 								</label>
 							</div>
 						<div class="col-auto">
-							<label lass="colorinput">
-								<input type="radio" id="color" name="color" class="colorinput-input">
+							<label class="colorinput">
+								<input type="radio" id="color" name="color" value="blue" class="colorinput-input">
 								<span class="colorinput-color bg-blue"></span>
 							</label>
 						</div>
 						<div class="col-auto">
-							<label lass="colorinput">
+							<label class="colorinput">
 								<input type="radio" id="color" name="color" value="red" class="colorinput-input">
 								<span class="colorinput-color bg-red"></span>
 							</label>
 						</div>
 						<div class="col-auto">
-							<label lass="colorinput">
-								<input type="radio" id="color" name="color" class="colorinput-input">
+							<label class="colorinput">
+								<input type="radio" id="color" name="color" value="green" class="colorinput-input">
 								<span class="colorinput-color bg-green"></span>
 							</label>
 						</div>
 						<div class="col-auto">
-							<label lass="colorinput">
-								<input type="radio" id="color" name="color" class="colorinput-input">
+							<label class="colorinput">
+								<input type="radio" id="color" name="color" value="yellow" class="colorinput-input">
 								<span class="colorinput-color bg-yellow"></span>
 							</label>
 						</div>
 						<div class="col-auto">
-							<label lass="colorinput">
-								<input type="radio" id="color" name="color" class="colorinput-input">
+							<label class="colorinput">
+								<input type="radio" id="color" name="color" value="gray" class="colorinput-input">
 								<span class="colorinput-color bg-gray"></span>
 							</label>
 						</div>
 						<div class="col-auto">
-							<label lass="colorinput">
-								<input type="radio" id="color" name="color" class="colorinput-input">
+							<label class="colorinput">
+								<input type="radio" id="color" name="color" value="black" class="colorinput-input">
 								<span class="colorinput-color bg-gray-dark"></span>
 							</label>
 						</div>
@@ -171,35 +171,32 @@ $(function(){
    });
 });
 
-$(document).ready(function(){
 
+$(document).ready(function(){
 	$(".selectgroup-input, .colorinput-input").click(function(){
 		var bno = new Array();
 		var kno = new Array();
 
-		if($("input:checkbox[name=bno]").is(":checked")==true){
+		
+		/* if($("input:checkbox[name=bno]").is(":checked")==true){
 			$("input[name=bno]:checked").each(function(){
 				bno.push($(this).val());
 			})
-		}else{
-				bno.push("")
-			}
-		
+		}
 		if($("input:checkbox[name=kno]").is(":checked")==true){
 			$("input[name=kno]:checked").each(function(){
 				kno.push($(this).val());
 			})
-		}else{
-				kno.push("")
-			}
-		var color;
-		if($("input:radio[name=color]").is(":checked")==true){
-			color = $("#color").val();
-		}else{
-			color = "";
-			}
-		if($(""))
-		var color = $("#color").val();
+		}
+		 */
+		 $("input[name=bno]:checked").each(function(){
+				bno.push($(this).val());
+			})
+			
+				$("input[name=kno]:checked").each(function(){
+				kno.push($(this).val());
+			})
+		 var color = $("#color").val();
 		
 		$.ajax({
 				url : "shoestore/shoesselect",
@@ -210,29 +207,20 @@ $(document).ready(function(){
 				dataType : "json",
 				success : function(data){
 					$(data).each(function(idx, item){
-						alert(item.shoesname)
+
 						console.log(item.shoesname);
 
 						console.log(item.brand);
 					
 							
 						})
-}
+					}
+			})
 		})
-	})
-		
-		
+			
 })  
 
-   function vali(val){
- 
-                if (value === null) return true; 
-                if (typeof value === 'string' && value === '') return true;
-                if (typeof value === 'undefined') return true;
-                
-                return false;
- 
-            }
+
 </script>
 </body>
 </html>
