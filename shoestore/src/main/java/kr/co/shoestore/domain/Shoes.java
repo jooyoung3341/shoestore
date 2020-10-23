@@ -6,6 +6,7 @@ public class Shoes {
 	private int kno;
 	private String shoesname;
 	private String brand;
+	private String kind;
 
 	private String color;
 	private String contents;
@@ -14,6 +15,14 @@ public class Shoes {
 	private String indate;
 	private int sale;
 	private int favorites;
+	
+	
+	public String getKind() {
+		return kind;
+	}
+	public void setKind(String kind) {
+		this.kind = kind;
+	}
 	public String getBrand() {
 		return brand;
 	}

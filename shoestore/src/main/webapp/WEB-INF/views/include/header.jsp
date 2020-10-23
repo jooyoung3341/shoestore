@@ -2,6 +2,7 @@
     pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib uri="http://www.springframework.org/security/tags" prefix="sec" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -64,10 +65,21 @@
 				<div class="d-flex">
 					<a href="home" class="header-brand">shoestore</a>
 					<div class="d-flex order-lg-2 ml-auto">
+						<sec:authorize access="isAnonymous()">
 						<div class="nav-item d-none d-md-flex">
-							<a href="#" class="btn btn-lg btn-outline-primary">로그인</a>
+							<a href="login" class="btn btn-lg btn-outline-primary">로그인</a>
 						</div>
+						</sec:authorize>
+						<sec:authorize access="isAuthenticated()">
+						<div class="d-flex order-lg-2 ml-auto">
+						<form action='<c:url value="/login"/>' method="post">
+							<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
+							<button type="submit" class="btn btn-lg btn-outline-primary">로그아웃 </button>
+						</form>
+						</div>
+					</sec:authorize>
 					</div>
+				
 					<a href="#" class="header-toggler d-lg-none ml-3 ml-lg-0" data-toggle="collapse" data-target="#headerMenuCollapse" aria-expended="false">
 						<span class="header-toggler-icon"></span>
 					</a>
@@ -87,17 +99,15 @@
 								<a href="shoestore" class="nav-link">신발</a>
 							</li>
 							<li class="nav-item">
-								<a href="#" class="nav-link">회원 추천 신발</a>
+								<a href="commendshoes" class="nav-link">회원 추천 신발</a>
 							</li>
 							<li class="nav-item">
 								<a href="#" class="nav-link">중고 매장</a>
 							</li>
 							<li class="nav-item">
-								<a href="#" class="nav-link">장바구니</a>
+								<a href='basket?id=<sec:authentication property="Principal"/>' class="nav-link">장바구니</a>
 							</li>
-							<li class="nav-item">
-								<a href="login" class="nav-link">로그인</a>
-							</li>
+						
 							
 						</ul>
 					</div>

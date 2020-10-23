@@ -1,6 +1,8 @@
 package kr.co.shoestore.controller;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -25,8 +27,8 @@ public class ShoeStoreController {
 	//신발 목록 이동
 	@RequestMapping(value="shoestore", method=RequestMethod.GET)
 	public String shoestore(Model model, HttpServletRequest request) {
-		List<Shoes> shoeslist = shoeStoreService.shoesSelect(request);
-		model.addAttribute("shoeslist", shoeslist);
+		List<Shoes> shoesList = shoeStoreService.shoesSelect(request);
+		model.addAttribute("shoesList", shoesList);
 		return "shoestore/shoestore";
 	}
 	
@@ -37,7 +39,7 @@ public class ShoeStoreController {
 		return "shoestore/shoesRegister";
 	}
 	
-
+	//신발 업로드
 	@RequestMapping(value="shoesRegister", method=RequestMethod.POST)
 	public String shoestoreRegister(MultipartHttpServletRequest request, RedirectAttributes attr) {
 		shoeStoreService.shoesRegister(request);
@@ -45,9 +47,21 @@ public class ShoeStoreController {
 		return "redirect:/shoestore";
 	}
 	
+	//신발 조건 조회 
 	@RequestMapping(value="shoestore/shoesselect", method=RequestMethod.GET)
 	@ResponseBody
 	public List<Shoes> shoeSelect(HttpServletRequest request){
 		return shoeStoreService.shoesSelect(request);
 	}
+	
+	//신발 상세보기
+	@RequestMapping(value="shoesDetail", method=RequestMethod.GET)
+	public String shoesDetail(HttpServletRequest request, Model model) {
+		Shoes shoes = shoeStoreService.shoesDetail(request);
+		model.addAttribute("shoes", shoes);
+		
+		return "shoestore/shoesDetail";  
+	}
+	
+
 }

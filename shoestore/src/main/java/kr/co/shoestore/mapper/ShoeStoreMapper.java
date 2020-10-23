@@ -6,6 +6,7 @@ import java.util.Map;
 
 import org.apache.ibatis.annotations.Mapper;
 
+import kr.co.shoestore.domain.Basket;
 import kr.co.shoestore.domain.Shoes;
 
 @Mapper
@@ -16,4 +17,10 @@ public interface ShoeStoreMapper {
 	
 	//신발 목록
 	public List<Shoes> shoesSelect(Map<String, Object> hashShoes);
+	
+	//신발 상세보기
+	public Shoes shoesDetail(int sno);
+	
+	
 }
+ 

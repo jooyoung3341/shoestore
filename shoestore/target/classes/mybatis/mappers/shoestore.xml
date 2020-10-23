@@ -5,13 +5,13 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 <mapper namespace="kr.co.shoestore.mapper.ShoeStoreMapper">
 
 <sql id="brand">
-	where s.bno in <foreach collection="bno" item="item" open="(" close=")" separator=",">#{item}</foreach>
+	<foreach collection="bno" item="item" open="(" close=")" separator="or">s.bno = #{item}</foreach>
 </sql>
 <sql id="kind">
-	where s.kno in <foreach collection="kno" item="item" open="(" close=")" separator=",">#{item}</foreach>
+	<foreach collection="kno" item="item" open="(" close=")"  separator="or">s.kno= #{item}</foreach>
 </sql>
 <sql id="color">
-	where s.color = #{color}
+	<foreach collection="color" item="item" open="(" close=")"  separator="or">s.color = #{item}</foreach>
 </sql>
 
 
@@ -28,14 +28,34 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		   inner join brand as b on s.bno = b.bno
 		   inner join kind as k on s.kno = k.kno
 	<choose>
-		<when test="bno != null"><include refid="brand"/></when>
-		<when test="kno != null"><include refid="kind"/></when>
-		<when test="color != null"><include refid="color"/></when>
-		<when test="bno != null and kno != null"><include refid="brand"/>and<include refid="kind"/></when> 
-		<when test="bno != null and color != null"><include refid="brand"/>and<include refid="color"/></when>
-		<when test="kno != null and color != null"><include refid="kind"/>and<include refid="color"/></when>
+		<when test="bno != null and kno == null and color == null">where s.bno in <foreach collection="bno" item="item" open="(" close=")" separator=",">#{item}</foreach></when>
+		
+		<when test="kno != null and bno == null and color == null">where s.kno in <foreach collection="kno" item="item" open="(" close=")" separator=",">#{item}</foreach></when>
+		
+		<when test="color != null and kno == null and bno == null">where s.color in <foreach collection="color" item="item" open="(" close=")" separator=",">#{item}</foreach></when>
+		
+		<when test="bno != null and kno != null and color == null">
+				where (s.bno, s.kno) in(select s.bno, s.kno from shoes as s where (
+					<include refid="brand"/> and <include refid="kind"/>		
+				))
+		</when> 
+		
+		<when test="bno != null and color != null and kno == null">
+			where (s.bno, s.color) in(select s.bno, s.color from shoes as s where (
+				<include refid="brand"/> and <include refid="color"/>				
+			))
+		</when>
+		
+		<when test="kno != null and color != null and bno == null">
+			where (s.kno, s.color) in(select s.kno, s.color from shoes as s where (
+				<include refid="kind"/>and <include refid="color"/>				
+			))
+		</when>
+		
 		<when test="bno != null and kno != null and color != null">
-			<include refid="brand"/>and<include refid="kind"/>and<include refid="color"/>
+			where (s.bno, s.kno, s.color) in(select s.bno, s.kno, s.color from shoes as s where (
+				<include refid="brand"/> and <include refid="kind"/> and <include refid="color"/>				
+			))
 		</when>
 	</choose>
 
@@ -52,4 +72,35 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 </if>
  -->
 </select>
+
+<!-- 신발 상세보기  -->
+<select id="shoesDetail" parameterType="java.lang.Integer" resultType="Shoes">
+	select s.sno, b.brand, k.kind, s.shoesname, s.color, s.image, s.price, s.sale, s.favorites, s.contents
+	from shoes as s					  
+		   inner join brand as b on s.bno = b.bno
+		   inner join kind as k on s.kno = k.kno
+	where s.sno = #{sno}
+</select>
+
+<!-- 장바구니 담기 -->
+<insert id="basketInsert" parameterType="basket">
+	insert into basket(id, sno)
+				 values(#{id}, #{sno})
+</insert>
+
+<!-- 장바구니 상품 여부 -->
+<select id="basketCheck" parameterType="java.lang.String" resultType="java.lang.String">
+	select id
+	from basket
+	where id = #{id} and sno = #{sno}	
+
+</select>
+
+
+
 </mapper>
+
+
+
+
+

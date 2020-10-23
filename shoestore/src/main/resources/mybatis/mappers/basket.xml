@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="kr.co.shoestore.mapper.BasketMapper">
+
+<!-- 장바구니 목록 -->
+<select id="basket" parameterType="java.lang.String" resultType="Basket">
+	select b.id, s.shoesname, br.brand, s.image, s.price, b.bno
+	from basket as b
+		   inner join shoes as s on b.sno = s.sno
+		   inner join brand as br on s.bno = br.bno
+	where id = #{id}
+</select> 
+
+<!-- 장바구니 담기 -->
+<insert id="basketInsert" parameterType="Basket">
+	insert into basket(id, sno)
+				 values(#{id}, #{sno})
+</insert>
+
+<!-- 장바구니 상품 여부 -->
+<select id="basketCheck" parameterType="java.lang.String" resultType="java.lang.String">
+	select id
+	from basket
+	where id = #{id} and sno = #{sno}	
+
+</select>
+
+
+
+</mapper>
+
+
+
+
+

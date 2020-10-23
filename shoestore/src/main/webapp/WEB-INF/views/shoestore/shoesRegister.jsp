@@ -6,9 +6,10 @@
 <%@include file="../include/header.jsp" %>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+<%--
 <meta id="_csrf" name="_csrf" content="${_csrf.token}" />
 <meta id="_csrf_header" name="_csrf_header" content="${_csrf.headerName}" />
-
+--%>
 
 </head>
 <body>
@@ -16,12 +17,12 @@
 	<div class="my-3 my-md-5">
 		<div class="container">
 			<div class="row">
-				<div class="col-8">
+				<div class="col-8"> 
 					<form method="post" class="card" name="form" enctype="multipart/form-data" 
 						     action='<c:url value="/shoesRegister?${_csrf.parameterName}=${_csrf.token}"/> ' onsubmit="return check()">
 					<div class="card-header">
 						<h3 class="card-title">
-							<font style="vertical-align: inherit;">신발 업로드</font>
+							신발 업로드
 						</h3>
 					</div>
 					<div class="card-body">
@@ -30,16 +31,16 @@
 								<label class="form-label">신발 이름</label>
 								<input type="text" class="form-control" id="shoesname" name="shoesname" required="required">
 							</div>
+							
 							<div class="form-group">
 								<label class="form-label">가격</label>
 								<div class="input-group">
 									<input type="text" class="form-control" id="price" name="price" maxlength="8" required="required">
 								</div>
 							</div>
+							
 							<div class="form-group">
-								<div class="form-label">
-									<font style="vertical-align: inherit;">신발 이미지</font>
-								</div>
+								<div class="form-label">신발 이미지</div>
 								<div class="custom-file">
 									<input type="file" class="custom-file-input" id="image" name="image" required="required">
 									<label class="custom-file-label">사진</label>
@@ -48,6 +49,7 @@
 									</div>
 								</div>
 							</div>
+							
 							<div class="form-group">
 								<label class="form-label">브랜드</label>
 								<div class="selectgroup w-100">
@@ -69,6 +71,7 @@
 									</label>
 								</div>
 							</div>
+							
 							<div class="form-group">
 								<label class="form-label">종류</label>
 								<div class="selectgroup w-100">
@@ -90,63 +93,72 @@
 									</label>
 								</div>
 							</div>
+							
 							<div class="form-group">
 								<label class="form-label">
 									<font style="vertical-align: inherit;">색상</font>
 								</label>
 								<div class="row gutters-xs">
+								
 									<div class="col-auto">
-										<label lass="colorinput">
+										<label class="colorinput">
 											<input type="radio" id="color" name="color"  value="white" class="colorinput-input" required="required">
 											<span class="colorinput-color bg-blue-lightest"></span>
 										</label>
 									</div>
+									
 									<div class="col-auto">
-										<label lass="colorinput">
+										<label class="colorinput">
 											<input type="radio" id="color" name="color" value="blue" class="colorinput-input">
 											<span class="colorinput-color bg-blue"></span>
 										</label>
 									</div>
+									
 									<div class="col-auto">	
-										<label lass="colorinput">
+										<label class="colorinput">
 											<input type="radio" id="color" name="color" value="red" class="colorinput-input">
 											<span class="colorinput-color bg-red"></span>
 										</label>
 									</div>
+									
 									<div class="col-auto">
-										<label lass="colorinput">
+										<label class="colorinput">
 											<input type="radio" id="color" name="color" value="green" class="colorinput-input">
 											<span class="colorinput-color bg-green"></span>
 										</label>
 									</div>
+									
 									<div class="col-auto">
-										<label lass="colorinput">
+										<label class="colorinput">
 											<input type="radio" id="color" name="color" value="yellow" class="colorinput-input">
 											<span class="colorinput-color bg-yellow"></span>
 										</label>
 									</div>
+									
 									<div class="col-auto">
-										<label lass="colorinput">
+										<label class="colorinput">
 											<input type="radio" id="color" name="color" value="gray" class="colorinput-input">
 											<span class="colorinput-color bg-gray"></span>
 										</label>
 									</div>
+									
 									<div class="col-auto">
-										<label lass="colorinput">
+										<label class="colorinput">
 											<input type="radio" id="color" name="color" value="black" class="colorinput-input">
 											<span class="colorinput-color bg-gray-dark"></span>
 										</label>
 									</div>
 								</div>
 							</div>
+							
 							<div class="form-group mb-0">
 								<label class="form-label">상세 설명</label>
 								<textarea id="contents" name="contents" rows="5" class="form-control" required="required"></textarea>
 							</div>
+							
 							<div class="form-footer">
-							<%-- 	<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"> --%>
 								<button type="submit" class="btn btn-primary btn-block">
-									<font style="vertical-align: inherit;">업로드</font>
+									업로드
 								</button>
 							</div>
 						</div>

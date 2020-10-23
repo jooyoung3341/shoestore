@@ -2,6 +2,7 @@ package kr.co.shoestore.service.impl;
 
 import java.io.File;
 import java.text.SimpleDateFormat;
+import java.util.Arrays;
 import java.util.Calendar;
 import java.util.HashMap;
 import java.util.List;
@@ -15,6 +16,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
+import kr.co.shoestore.domain.Basket;
 import kr.co.shoestore.domain.Shoes;
 import kr.co.shoestore.mapper.ShoeStoreMapper;
 import kr.co.shoestore.service.ShoeStoreService;
@@ -63,7 +65,7 @@ public class ShoeStoreServiceImpl implements ShoeStoreService {
 		try {
 			//파일 전송 - 파일 업로드
 			image.transferTo(file);
-			shoes.setShoesname(shoesname);
+			shoes.setShoesname(shoesname); 
 			shoes.setColor(color);
 			shoes.setContents(contents);
 			shoes.setImage(filename);
@@ -77,18 +79,22 @@ public class ShoeStoreServiceImpl implements ShoeStoreService {
 		}
 		
 	}
-
+ 
 	//신발 목록
 	@Override
 	public List<Shoes> shoesSelect(HttpServletRequest request) {
 		String [] bno = request.getParameterValues("bno");
-		
 		String [] kno = request.getParameterValues("kno");
-		String color = request.getParameter("color");
+		String [] color = request.getParameterValues("color");
+
 		Map<String, Object> hashShoes = new HashMap<String, Object>();
 		hashShoes.put("bno", bno);
 		hashShoes.put("kno", kno);
 		hashShoes.put("color", color);
+		System.out.println("color : " + Arrays.toString(color));
+		System.out.println("bno : " + Arrays.toString(bno));
+		System.out.println("kno : " + Arrays.toString(kno));
+		
 		/*
 		 * if(bno != null) { hashShoes.put("bno", bno); }else{ hashShoes.put("bno", "");
 		 * }
@@ -101,6 +107,18 @@ public class ShoeStoreServiceImpl implements ShoeStoreService {
 		 */
 		return shoeStoreMapper.shoesSelect(hashShoes);
 	}
+
+	//신발 상세보기
+	@Override
+	public Shoes shoesDetail(HttpServletRequest request) {
+		String sno = request.getParameter("sno");
+
+		return shoeStoreMapper.shoesDetail(Integer.parseInt(sno));
+	}
+
+
+
+
 
 	
 }
